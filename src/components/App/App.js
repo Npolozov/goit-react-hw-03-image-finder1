@@ -10,14 +10,13 @@ export class App extends Component {
     photo: [],
   };
 
-  async componentDidMount() {
-    const photo = await imageByName(this.state.image);
+  async componentDidMount() {}
+
+  handlelFormSubmit = async image => {
+    this.setState({ image });
+    const photo = await imageByName(image);
     console.log(photo);
     this.setState({ photo });
-  }
-
-  handlelFormSubmit = image => {
-    this.setState({ image });
   };
 
   // selectBreed = async breedId => {

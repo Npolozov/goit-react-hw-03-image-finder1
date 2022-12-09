@@ -1,12 +1,13 @@
+import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem.styled';
+import { List } from './ImageGallery.styled';
+
 export const ImageGallery = ({ hits }) => {
   console.log(hits);
   return (
-    <ul>
+    <List>
       {hits.map(hit => (
-        <li key={hit.id}>
-          <img src={hit.webformatURL} alt="" />
-        </li>
+        <ImageGalleryItem key={hit.id} hit={hit} />
       ))}
-    </ul>
+    </List>
   );
 };
