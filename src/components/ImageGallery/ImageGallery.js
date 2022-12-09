@@ -1,10 +1,10 @@
-export const ImageGallery = items => {
-  console.log(items);
+export const ImageGallery = hits => {
+  console.log(hits);
   return (
     <ul>
-      {items.map(item => (
-        <li key={item.id}>
-          <img src={item.webformatURL} alt="" />
+      {hits.map(hit => (
+        <li key={hit.id}>
+          <img src={hit.webformatURL} alt="" />
         </li>
       ))}
     </ul>

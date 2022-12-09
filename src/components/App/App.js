@@ -43,7 +43,7 @@ export class App extends Component {
       <>
         <Searchbar onSubmit={this.handlelFormSubmit} />
         {error && <p>{error}</p>}
-        <ImageGallery items={image} />
+        <ImageGallery hits={image} />
       </>
     );
   }

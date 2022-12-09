@@ -8,5 +8,5 @@ export const imageByName = async query => {
 `
   );
   console.log(response.data.hits);
-  return response.data.hits;
+  return response.data;
 };
