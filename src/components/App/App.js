@@ -7,18 +7,17 @@ export class App extends Component {
   state = {
     image: '',
     error: null,
+    photo: [],
   };
 
-  handlelFormSubmit = async query => {
-    try {
-      const image = await imageByName(query);
-      this.setState({ image });
-    } catch (error) {
-      this.setState({
-        error:
-          'У нас не получилось взять данные о собачке, попробуйте еще разочек 😇',
-      });
-    }
+  async componentDidMount() {
+    const photo = await imageByName(this.state.image);
+    console.log(photo);
+    this.setState({ photo });
+  }
+
+  handlelFormSubmit = image => {
+    this.setState({ image });
   };
 
   // selectBreed = async breedId => {
@@ -37,13 +36,13 @@ export class App extends Component {
   // };
 
   render() {
-    const { error, image } = this.state;
+    const { error, image, photo } = this.state;
     console.log(image);
     return (
       <>
         <Searchbar onSubmit={this.handlelFormSubmit} />
         {error && <p>{error}</p>}
-        <ImageGallery hits={image} />
+        <ImageGallery hits={photo} />
       </>
     );
   }

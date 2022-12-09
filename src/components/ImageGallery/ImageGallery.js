@@ -1,4 +1,4 @@
-export const ImageGallery = hits => {
+export const ImageGallery = ({ hits }) => {
   console.log(hits);
   return (
     <ul>
