@@ -4,47 +4,68 @@ import { imageByName } from 'api';
 import { ImageGallery } from 'components/ImageGallery/ImageGallery';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { LoadMore } from 'components/Button/Button';
+import { Section } from './App.styled';
+import { Loader } from 'components/Loader/Loader';
 
 export class App extends Component {
   state = {
+    page: 1,
     image: '',
     error: null,
     photo: [],
     isLoading: false,
   };
 
-  async componentDidMount() {}
-
-  // handlelFormSubmit = async image => {
-  //   this.setState({ image });
-  //   const photo = await imageByName(image);
-  //   this.setState({ photo });
-  // };
-
-  handlelFormSubmit = async image => {
-    try {
-      this.setState({ image, isLoading: true, error: null });
-      const photo = await imageByName(image);
-      this.setState({ photo });
-    } catch (error) {
-      toast.error(
-        'У нас не получилось взять данные о собачке, попробуйте еще разочек 😇'
-      );
-    } finally {
-      this.setState({ isLoading: false });
-    }
+  handlelFormSubmit = image => {
+    this.setState({
+      page: 1,
+      image,
+      error: null,
+      photo: [],
+      isLoading: false,
+    });
   };
 
+  loadMore = () => {
+    const { photo } = this.state;
+    this.setState(prevState => ({
+      page: prevState.page + 1,
+      photo: [...prevState.photo, ...photo],
+    }));
+  };
+
+  async componentDidUpdate(_, prevState) {
+    if (
+      prevState.page !== this.state.page ||
+      prevState.image !== this.state.image
+    ) {
+      try {
+        const { image, page } = this.state;
+        const photo = await imageByName(image, page);
+        this.setState({ photo });
+      } catch (error) {
+        toast.error(
+          'У нас не получилось взять данные о собачке, попробуйте еще разочек 😇'
+        );
+      } finally {
+        this.setState({ isLoading: false });
+      }
+    }
+  }
+
   render() {
-    const { error, image, photo } = this.state;
-    console.log(image);
+    const { error, image, photo, isLoading } = this.state;
+    console.log(photo);
     return (
-      <>
+      <Section>
         <Searchbar onSubmit={this.handlelFormSubmit} />
+        {isLoading && <Loader />}
         {error && <p>{error}</p>}
-        <ImageGallery hits={photo} />
+        {image && <ImageGallery hits={photo} />}
+        {photo.length >= 12 && <LoadMore onClick={this.loadMore} />}
         <ToastContainer autoClose={2000} position="top-right" />
-      </>
+      </Section>
     );
   }
 }
