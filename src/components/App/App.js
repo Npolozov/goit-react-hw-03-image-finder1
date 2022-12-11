@@ -41,6 +41,7 @@ export class App extends Component {
       prevState.image !== this.state.image
     ) {
       try {
+        this.setState({ isLoading: true });
         const { image, page } = this.state;
         const photo = await imageByName(image, page);
         this.setState({ photo });
