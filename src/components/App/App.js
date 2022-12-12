@@ -28,10 +28,8 @@ export class App extends Component {
   };
 
   loadMore = () => {
-    const { photo } = this.state;
     this.setState(prevState => ({
       page: prevState.page + 1,
-      photo: [...prevState.photo, ...photo],
     }));
   };
 
@@ -44,7 +42,9 @@ export class App extends Component {
         this.setState({ isLoading: true });
         const { image, page } = this.state;
         const photo = await imageByName(image, page);
-        this.setState({ photo });
+        this.setState(prevState => ({
+          photo: [...prevState.photo, ...photo],
+        }));
       } catch (error) {
         toast.error(
           'У нас не получилось взять данные о собачке, попробуйте еще разочек 😇'
