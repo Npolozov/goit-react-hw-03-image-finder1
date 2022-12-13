@@ -1,4 +1,5 @@
 import Modal from 'react-modal';
+import PropTypes from 'prop-types';
 
 const modalStyles = {
   content: {
@@ -19,4 +20,10 @@ export const ImageModal = ({ isOpen, img, onClose }) => {
       <img src={img} alt="картинка" />
     </Modal>
   );
+};
+
+ImageModal.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  img: PropTypes.string.isRequired,
+  onClose: PropTypes.func.isRequired,
 };

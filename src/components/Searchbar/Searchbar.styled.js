@@ -41,6 +41,11 @@ export const SearchFormButton = styled.button`
   cursor: pointer;
   outline: none;
 
+  svg {
+    width: 25px;
+    height: 25px;
+  }
+
   &:hover {
     opacity: 1;
   }

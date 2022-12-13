@@ -6,6 +6,7 @@ import {
   Label,
   Input,
 } from './Searchbar.styled';
+import { FiSearch } from 'react-icons/fi';
 
 export class Searchbar extends Component {
   state = {
@@ -27,6 +28,7 @@ export class Searchbar extends Component {
       <Header>
         <SearchForm onSubmit={this.handelSubmit}>
           <SearchFormButton type="submit">
+            <FiSearch width="50px" />
             <Label>Search</Label>
           </SearchFormButton>
 

@@ -1,5 +1,6 @@
 import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem.styled';
 import { List } from './ImageGallery.styled';
+import PropTypes from 'prop-types';
 
 export const ImageGallery = ({ hits }) => {
   console.log(hits);
@@ -10,4 +11,8 @@ export const ImageGallery = ({ hits }) => {
       ))}
     </List>
   );
+};
+
+ImageGallery.propTypes = {
+  hits: PropTypes.array.isRequired,
 };
