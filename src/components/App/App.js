@@ -18,6 +18,10 @@ export class App extends Component {
   };
 
   handlelFormSubmit = image => {
+    if (!image) {
+      toast.error('Ввдедіть дані для пошуку!!!');
+      return;
+    }
     this.setState({
       page: 1,
       image,
@@ -42,13 +46,17 @@ export class App extends Component {
         this.setState({ isLoading: true });
         const { image, page } = this.state;
         const photo = await imageByName(image, page);
+        if (photo.length === 0) {
+          toast.error(
+            'Sorry, there are no images matching your search query. Please try again.'
+          );
+          return;
+        }
         this.setState(prevState => ({
           photo: [...prevState.photo, ...photo],
         }));
       } catch (error) {
-        toast.error(
-          'У нас не получилось взять данные о собачке, попробуйте еще разочек 😇'
-        );
+        toast.error('Нет данных');
       } finally {
         this.setState({ isLoading: false });
       }
